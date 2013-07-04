@@ -20,7 +20,7 @@ local clients_metatable = {
                             if obj_type == "table" then
                                 local is_equal = true
                                 for index, value in pairs(obj) do
-                                    if data[index] ~= value then
+                                    if clients.data[index] ~= value then
                                         is_equal = false
                                         break
                                     end
@@ -30,7 +30,7 @@ local clients_metatable = {
                                 end
                             else
                                 --TODO: detect when iterating function takes two arguments and pass (client, data) instead of only data
-                                if obj(data) then
+                                if obj(clients.data) then
                                     count = count + 1
                                 end
                             end
@@ -42,7 +42,7 @@ local clients_metatable = {
             elseif client_index == "Each" then
                 return function(callback)
                     for _, client in ipairs(SparkMod.connected_clients) do
-                        callback(data)
+                        callback(clients.data)
                     end
                     return SparkMod.clients.count
                 end
